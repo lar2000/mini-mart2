@@ -48,6 +48,8 @@
 
         <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet" />
 
+		<link rel="stylesheet" href="assets/css/font_lao.css">
+	
 	</head>
 
 	<body class="main-body app sidebar-mini">
