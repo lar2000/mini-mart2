@@ -6,7 +6,15 @@
         <div class="d-flex justify-content-between">
           <h4 class="card-title mg-b-0">STRIPED ROWS</h4>
           <span>
-            {{ FormShow }}
+       
+            
+           <!-- <button
+              class="btn btn-primary-gradient"
+              @click="get_data()"
+            >
+              ດຶງຂໍ້ມູນ
+            </button>
+          -->
             <button
               v-if="FormShow"
               class="btn btn-success-gradient me-2"
@@ -36,12 +44,12 @@
         </p>
       </div>
       <div class="card-body">
-        {{ FormData }}
-        <hr />
+    
+      
         <div class="form-store row" v-if="FormShow">
           <div class="col-md-3">ອັບໂຫຼດຮູບ</div>
           <div class="col-md-9">
-            {{ FormProduct }}
+       
             <div class="form-group">
               <label for="exampleInputEmail1">ຊື່ສິນຄ້າ</label>
               <input
@@ -64,8 +72,8 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="exampleInputEmail1">ລາຄາຊື້</label>
-                <input
-                  type="text"
+                <cleave
+                  :options="options"
                   class="form-control"
                   v-model="FormProduct.price_buy"
                   placeholder="ປ້ອນລາຄາຊື້..."
@@ -75,8 +83,8 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="exampleInputEmail1">ລາຄາຂາຍ</label>
-                <input
-                  type="text"
+                <cleave
+                :options="options"
                   class="form-control"
                   v-model="FormProduct.price_sell"
                   placeholder="ປ້ອນລາຄາຂາຍ.."
@@ -106,8 +114,8 @@
               <th>{{ list.id }}</th>
               <td>{{ list.name }}</td>
               <td>{{ list.amount }}</td>
-              <td>{{ list.price_buy }}</td>
-              <td>{{ list.price_sell }}</td>
+              <td>{{ formatPrice(list.price_buy) }}</td>
+              <td>{{ formatPrice(list.price_sell) }}</td>
               <td>
                 <div class="btn-icon-list">
                   <button class="btn btn-primary btn-icon" @click="edit_store(list.id)">
@@ -135,32 +143,21 @@ export default {
 
   data() {
     return {
+      options: {
+              ///prefix: '₭ ',
+              numeral: true,
+              numeralPositiveOnly: true,
+              noImmediatePrefix: true,
+              rawValueTrimPrefix: true,
+              numeralIntegerScale: 10,
+              numeralDecimalScale: 2,
+              numeralDecimalMark: '.',
+              delimiter: ','
+                },
       FormShow: false,
       FormType: false,
       EditID:"",
-      FormData: [
-        {
-          id: 799,
-          name: "ເກີບຜ້າໃບ",
-          amount: 12,
-          price_buy: "150000",
-          price_sell: "30000",
-        },
-        {
-          id: 162,
-          name: "ເສື້ອກັນໜາວ",
-          amount: 50,
-          price_buy: "50000",
-          price_sell: "80000",
-        },
-        {
-          id: 295,
-          name: "ຄັນຮົ່ມ",
-          amount: 50,
-          price_buy: "80000",
-          price_sell: "120000",
-        },
-      ],
+      FormData: [],
       FormProduct: {
         name: "",
         amount: "",
@@ -171,6 +168,18 @@ export default {
   },
 
   methods: {
+    formatPrice(value) {
+			let val = (value / 1).toFixed(0).replace(",", ".");
+			return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		},
+    get_data(){
+      this.$axios.get('/api/store').then((response)=>{
+            console.log(response.data);
+            this.FormData = response.data;
+            }).catch((error)=>{
+                console.log(error)
+            });
+    },
     add_store() {
       this.FormShow = true;
     },
@@ -182,21 +191,45 @@ export default {
         this.EditID = id;
 
         // ຄົ້ນຫາຂໍ້ມູນໂດຍທຽບກັບ id
-        let item = this.FormData.find((i)=>i.id == id);
+        //let item = this.FormData.find((i)=>i.id == id);
 
         // ທຳການເປີດຟອມ
         this.FormShow = true;
 
         // ເພີ່ມຂໍ້ມູນເຂົ້າໃນຟອມ
-        this.FormProduct.name = item.name;
-        this.FormProduct.amount = item.amount;
-        this.FormProduct.price_buy = item.price_buy;
-        this.FormProduct.price_sell = item.price_sell;
+        //this.FormProduct.name = item.name;
+        //this.FormProduct.amount = item.amount;
+        //this.FormProduct.price_buy = item.price_buy;
+        //this.FormProduct.price_sell = item.price_sell;
+
+        this.$axios.get(`/api/store/edit/${id}`).then((response) => {
+	
+          this.FormProduct.name = response.data.name;
+          this.FormProduct.amount = response.data.amount;
+          this.FormProduct.price_buy = response.data.price_buy;
+          this.FormProduct.price_sell = response.data.price_sell;
+
+        }).catch((error) => {
+            console.log(error);
+        });
 
     },
     delete_store(id){
-        let index = this.FormData.map((i)=>i.id).indexOf(id);
-        this.FormData.splice(index,1);
+
+        //let index = this.FormData.map((i)=>i.id).indexOf(id);
+        //this.FormData.splice(index,1);
+
+        this.$axios.delete(`/api/store/delete/${id}`).then((response)=>{
+              if(response.data.success){
+                    this.get_data();
+                    alert(response.data.message);
+              } else {
+                  alert('ລຶບຂໍ້ມູນ ບໍ່ສຳເລັດ:' + response.data.message);
+              }
+              
+            }).catch((error)=>{
+                console.log(error)
+            });
     },
     save_data() {
 
@@ -217,9 +250,8 @@ export default {
             formData.append('price_buy', this.FormProduct.price_buy);
             formData.append('price_sell', this.FormProduct.price_sell);
 
-            console.log(formData)
-
             this.$axios.post("/api/store/add", formData).then((response)=>{
+              this.get_data();
             }).catch((error)=>{
                 console.log(error)
             });
@@ -227,10 +259,28 @@ export default {
         } else {
             // ອັບເດດຂໍ້ມູນ
 
-            this.FormData.find((i)=>i.id == this.EditID).name = this.FormProduct.name;
-            this.FormData.find((i)=>i.id == this.EditID).amount = this.FormProduct.amount;
-            this.FormData.find((i)=>i.id == this.EditID).price_buy = this.FormProduct.price_buy;
-            this.FormData.find((i)=>i.id == this.EditID).price_sell = this.FormProduct.price_sell;
+            //this.FormData.find((i)=>i.id == this.EditID).name = this.FormProduct.name;
+            //this.FormData.find((i)=>i.id == this.EditID).amount = this.FormProduct.amount;
+            //this.FormData.find((i)=>i.id == this.EditID).price_buy = this.FormProduct.price_buy;
+            //this.FormData.find((i)=>i.id == this.EditID).price_sell = this.FormProduct.price_sell;
+
+            let formData = new FormData();
+            formData.append('name', this.FormProduct.name);
+            formData.append('amount', this.FormProduct.amount);
+            formData.append('price_buy', this.FormProduct.price_buy);
+            formData.append('price_sell', this.FormProduct.price_sell);
+            
+            this.$axios.post(`/api/store/update/${this.EditID}`, formData).then((response)=>{
+              if(response.data.success){
+                    this.get_data();
+                    alert(response.data.message);
+              } else {
+                  alert('ອັບເດດຂໍ້ມູນ ບໍ່ສຳເລັດ:' + response.data.message);
+              }
+              
+            }).catch((error)=>{
+                console.log(error)
+            });
         }
 
         this.FormType = false;
@@ -249,6 +299,9 @@ export default {
       this.FormShow = false;
     },
   },
+  created(){
+    this.get_data();
+  }
 };
 </script>
 
