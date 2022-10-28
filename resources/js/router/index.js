@@ -5,8 +5,20 @@ import Pos from "../Pages/Pos.vue";
 import Home from "../Pages/Home.vue";
 import Transection from "../Pages/Transection.vue";
 import Report from "../Pages/Report.vue";
+import Login from "../Pages/Login.vue";
+import Register from "../Pages/Register.vue";
 
 export const routes = [
+    {
+        name: "Login Page",
+        path: "/login",
+        component: Login
+    },
+    {
+        name: "Register Page",
+        path: "/register",
+        component: Register
+    },
     {
         name: "Store Page",
         path: "/store",
