@@ -9,7 +9,8 @@
 		<meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template">
 		<meta name="Author" content="Spruko Technologies Private Limited">
 		<meta name="Keywords" content="admin,admin dashboard,admin dashboard template,admin panel template,admin template,admin theme,bootstrap 4 admin template,bootstrap 4 dashboard,bootstrap admin,bootstrap admin dashboard,bootstrap admin panel,bootstrap admin template,bootstrap admin theme,bootstrap dashboard,bootstrap form template,bootstrap panel,bootstrap ui kit,dashboard bootstrap 4,dashboard design,dashboard html,dashboard template,dashboard ui kit,envato templates,flat ui,html,html and css templates,html dashboard template,html5,jquery html,premium,premium quality,sidebar bootstrap 4,template admin bootstrap 4"/>
-
+		<meta name="csrf-token" content="{{ csrf_token() }}" />
+		
 		<!-- Title -->
 		<title> Valex -  Premium dashboard ui bootstrap rwd admin html5 template </title>
 
@@ -53,6 +54,29 @@
 	</head>
 
 	<body class="main-body app sidebar-mini">
+
+	@if(Auth::check())
+			@php
+			$user_auth_data = [
+				'isLoggedin' => true,
+				'user' =>  Auth::user(),
+				'urlpath' =>'',
+			];
+			@endphp
+		@else
+			@php
+			$user_auth_data = [
+				'isLoggedin' => false,
+				'user' =>  Auth::user(),
+			];
+			@endphp
+		@endif
+
+		<script>
+			window.Laravel = JSON.parse(atob('{{ base64_encode(json_encode($user_auth_data)) }}'));
+		</script>
+
+
         <div id="app-vue"></div>
 
 

@@ -4,7 +4,7 @@
 							<!-- Demo content-->
 							<div class="container p-0">
 								<div class="row">
-									<div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
+									<div class="col-md-6 col-lg-6 col-xl-9 mx-auto">
 										<div class="card-sigin">
 											<div class="mb-5 d-flex">
 												<a href="index.html"><img src="assets/img/brand/favicon.png" class="sign-favicon-a ht-40" alt="logo">
@@ -14,24 +14,25 @@
 											</div>
 											<div class="card-sigin">
 												<div class="main-signup-header">
-													<h2>Welcome back!</h2>
-													<h5 class="fw-semibold mb-4">Please sign in to continue.</h5>
-													<form action="#">
+													<h2>ສະບາຍດີ!</h2>
+													<h5 class="fw-semibold mb-4">ກະລຸນາປ້ອນອີເມວລ໌ ແລະ ລະຫັດເພື່ອເຂົ້າສູ່ ລະບົບ.</h5>
+												
 														<div class="form-group">
-															<label>Email</label> <input class="form-control" placeholder="Enter your email" type="text">
+															<label>Email</label> 
+															<input class="form-control" placeholder="Enter your email" type="text" v-model="email">
 														</div>
 														<div class="form-group">
-															<label>Password</label> <input class="form-control" placeholder="Enter your password" type="password">
-														</div><button class="btn btn-main-primary btn-block">Sign In</button>
-														<div class="row row-xs">
-															<div class="col-sm-6">
-																<button class="btn btn-block"><i class="fab fa-facebook-f"></i> Signup with Facebook</button>
-															</div>
-															<div class="col-sm-6 mg-t-10 mg-sm-t-0">
-																<button class="btn btn-info btn-block btn-b"><i class="fab fa-twitter"></i> Signup with Twitter</button>
-															</div>
+															<label>Password</label> <input class="form-control" placeholder="Enter your password" type="password" v-model="password">
 														</div>
-													</form>
+														<div class="alert alert-warning" role="alert" v-if="show_error">
+																<button aria-label="Close" class="close" data-bs-dismiss="alert" type="button">
+																	<span aria-hidden="true">×</span>
+																</button>
+																<strong>ຜິດຜາດ!</strong> {{text_error}}
+															</div>
+														<button class="btn btn-main-primary btn-block" @click="login()">ເຂົ້າສູ່ລະບົບ</button>
+													
+											
 													<div class="main-signin-footer mt-5">
 														<p><a href="">Forgot password?</a></p>
 														<p>Don't have an account? <a href="page-signup.html">Create an Account</a></p>
@@ -52,7 +53,10 @@ export default {
 
     data() {
         return {
-            
+            email:'',
+			password:'',
+			show_error:false,
+			text_error:''
         };
     },
 
@@ -61,8 +65,31 @@ export default {
     },
 
     methods: {
-        
+        login(){
+			this.$axios.post("/api/login",{
+                email: this.email,
+                password: this.password
+            }).then((response)=>{
+
+				if(response.data.success){
+					window.location.href = "/store"
+					this.show_error = false
+				} else {
+					this.show_error = true
+					this.text_error = response.data.message;
+				}
+           
+            }).catch((error)=>{
+                console.log(error)
+            });
+		}
     },
+	beforeRouteEnter(to, from, next) {
+		if (window.Laravel.isLoggedin) {
+		window.location.href = "/store";
+		}
+    next();
+  },
 };
 </script>
 

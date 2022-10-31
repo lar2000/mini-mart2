@@ -8,3 +8,5 @@
 - npm run watch                                     = ຄຳສັ່ງ Run Compli Laravel ແລະ ຕິດຕາມການປ່ຽນແປງ
 - php artisan make:controller ປ້ອງຊື່ controller       = ຄຳສັ່ງສ້າງ Controller
 - php artisan make:model -m ປ້ອນຊື່ model              = ຄຳສັ່ງສ້າງ Model
+
+

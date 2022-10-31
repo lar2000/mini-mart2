@@ -32,7 +32,7 @@ export const routes = [
     {
         name: "Home",
         path: "/",
-        component: Home
+        component: Login
     },
     {
         name: "Transection Page",
