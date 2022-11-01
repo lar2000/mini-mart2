@@ -75,7 +75,11 @@
         
       
         <div class="form-store row" v-if="FormShow">
-          <div class="col-md-3">ອັບໂຫຼດຮູບ</div>
+          <div class="col-md-3">
+            <img :src="image_preview" style="width:100%" alt="" class=" mb-2">
+
+            <input type="file" class="form-control" @change="onSeclected">
+          </div>
           <div class="col-md-9">
        
             <div class="form-group">
@@ -217,10 +221,23 @@ export default {
         price_buy: "",
         price_sell: "",
       },
+      image_preview:window.location.origin+'/assets/img/add-img.png',
+      image_product:''
     };
   },
 
   methods: {
+    onSeclected(event){
+        console.log(event)
+        this.image_product = event.target.files[0];
+
+        let reader = new FileReader();
+        reader.readAsDataURL(this.image_product)
+        reader.addEventListener("load", function(){
+          this.image_preview = reader.result;
+        }.bind(this), false);
+
+    },
     showAlert() {
       // Use sweetalert2
       //this.$swal('Hello Vue world!!!');
@@ -255,16 +272,19 @@ export default {
             }).catch((error)=>{
                 console.log(error)
             });*/
-      
-      this.$axios.get(`/api/store?page=${page}&s=${this.search}`).then((response)=>{
-            //console.log(response.data);
-            this.FormData = response.data;
-            }).catch((error)=>{
-                console.log(error)
+            this.$axios.get("/sanctum/csrf-cookie").then((response)=>{
+              this.$axios.get(`/api/store?page=${page}&s=${this.search}`).then((response)=>{
+                    //console.log(response.data);
+                    this.FormData = response.data;
+                }).catch((error)=>{
+                    console.log(error)
+                });
             });
+                
     },
     add_store() {
       this.FormShow = true;
+      this.image_preview = window.location.origin+'/assets/img/add-img.png';
     },
     edit_store(id){
 
@@ -284,7 +304,7 @@ export default {
         //this.FormProduct.amount = item.amount;
         //this.FormProduct.price_buy = item.price_buy;
         //this.FormProduct.price_sell = item.price_sell;
-
+        this.$axios.get("/sanctum/csrf-cookie").then((response)=>{
         this.$axios.get(`/api/store/edit/${id}`).then((response) => {
 	
           this.FormProduct.name = response.data.name;
@@ -292,9 +312,18 @@ export default {
           this.FormProduct.price_buy = response.data.price_buy;
           this.FormProduct.price_sell = response.data.price_sell;
 
+          this.image_product = response.data.image;
+
+          if(response.data.image){
+            this.image_preview = window.location.origin+'/assets/img/'+response.data.image;
+          } else {
+            this.image_preview = window.location.origin+'/assets/img/add-img.png';
+          }
+
         }).catch((error) => {
             console.log(error);
         });
+      });
 
     },
     delete_store(id){
@@ -314,29 +343,30 @@ export default {
         }).then((result) => {
           if (result.isConfirmed) {
 
-            this.$axios.delete(`/api/store/delete/${id}`).then((response)=>{
-              if(response.data.success){
-                    this.get_data();
-                    //alert(response.data.message);
-                    this.$swal.fire(
-                    'ສຳເລັດ!',
-                    response.data.message,
-                    'success'
-                  );
-              } else {
-                  //alert('ລຶບຂໍ້ມູນ ບໍ່ສຳເລັດ:' + response.data.message);
+            this.$axios.get("/sanctum/csrf-cookie").then((response)=>{
+                this.$axios.delete(`/api/store/delete/${id}`).then((response)=>{
+                  if(response.data.success){
+                        this.get_data();
+                        //alert(response.data.message);
+                        this.$swal.fire(
+                        'ສຳເລັດ!',
+                        response.data.message,
+                        'success'
+                      );
+                  } else {
+                      //alert('ລຶບຂໍ້ມູນ ບໍ່ສຳເລັດ:' + response.data.message);
 
-                  this.$swal.fire(
-                    'ຜິດຜາດ!',
-                    response.data.message,
-                    'error'
-                  );
-              }
-              
-            }).catch((error)=>{
-                console.log(error)
-            });
-
+                      this.$swal.fire(
+                        'ຜິດຜາດ!',
+                        response.data.message,
+                        'error'
+                      );
+                  }
+                  
+                }).catch((error)=>{
+                    console.log(error)
+                });
+              });
             
           }
         });
@@ -361,12 +391,17 @@ export default {
             formData.append('amount', this.FormProduct.amount);
             formData.append('price_buy', this.FormProduct.price_buy);
             formData.append('price_sell', this.FormProduct.price_sell);
+            formData.append('file',this.image_product);
 
-            this.$axios.post("/api/store/add", formData).then((response)=>{
-              this.get_data();
-            }).catch((error)=>{
-                console.log(error)
+            this.$axios.get("/sanctum/csrf-cookie").then((response)=>{
+              this.$axios.post("/api/store/add", formData, {headers:{"content-type":"multipart/form-data"}}).then((response)=>{
+                this.get_data();
+              }).catch((error)=>{
+                  console.log(error)
+              });
             });
+
+
  
         } else {
             // ອັບເດດຂໍ້ມູນ
@@ -381,18 +416,22 @@ export default {
             formData.append('amount', this.FormProduct.amount);
             formData.append('price_buy', this.FormProduct.price_buy);
             formData.append('price_sell', this.FormProduct.price_sell);
+            formData.append('file',this.image_product);
             
-            this.$axios.post(`/api/store/update/${this.EditID}`, formData).then((response)=>{
-              if(response.data.success){
-                    this.get_data();
-                    alert(response.data.message);
-              } else {
-                  alert('ອັບເດດຂໍ້ມູນ ບໍ່ສຳເລັດ:' + response.data.message);
-              }
-              
-            }).catch((error)=>{
-                console.log(error)
-            });
+            this.$axios.get("/sanctum/csrf-cookie").then((response)=>{
+                this.$axios.post(`/api/store/update/${this.EditID}`, formData,{headers:{"content-type":"multipart/form-data"}}).then((response)=>{
+                  if(response.data.success){
+                        this.get_data();
+                        alert(response.data.message);
+                  } else {
+                      alert('ອັບເດດຂໍ້ມູນ ບໍ່ສຳເລັດ:' + response.data.message);
+                  }
+                  
+                }).catch((error)=>{
+                    console.log(error)
+                });
+              });
+
         }
 
         this.FormType = false;

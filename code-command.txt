@@ -9,4 +9,4 @@
 - php artisan make:controller ປ້ອງຊື່ controller       = ຄຳສັ່ງສ້າງ Controller
 - php artisan make:model -m ປ້ອນຊື່ model              = ຄຳສັ່ງສ້າງ Model
 
-
+- ຄຳສັ່ງຕິດຕັ້ງ ສ່ວນເສີມ ການອັບໂຫຼດຮູບພາບ: composer require intervention/image

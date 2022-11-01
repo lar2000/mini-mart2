@@ -4,7 +4,7 @@
 							<!-- Demo content-->
 							<div class="container p-0">
 								<div class="row">
-									<div class="col-md-6 col-lg-6 col-xl-9 mx-auto">
+									<div class="col-md-3 col-lg-3 col-xl-3 mx-auto">
 										<div class="card-sigin">
 											<div class="mb-5 d-flex">
 												<a href="index.html"><img src="assets/img/brand/favicon.png" class="sign-favicon-a ht-40" alt="logo">
@@ -19,10 +19,10 @@
 												
 														<div class="form-group">
 															<label>Email</label> 
-															<input class="form-control" placeholder="Enter your email" type="text" v-model="email">
+															<input class="form-control" placeholder="ປ້ອນອີເມວລ໌" type="text" v-model="email">
 														</div>
 														<div class="form-group">
-															<label>Password</label> <input class="form-control" placeholder="Enter your password" type="password" v-model="password">
+															<label>Password</label> <input class="form-control" placeholder="ປ້ອນລະຫັດຜ່ານ" type="password" v-model="password">
 														</div>
 														<div class="alert alert-warning" role="alert" v-if="show_error">
 																<button aria-label="Close" class="close" data-bs-dismiss="alert" type="button">
@@ -34,8 +34,8 @@
 													
 											
 													<div class="main-signin-footer mt-5">
-														<p><a href="">Forgot password?</a></p>
-														<p>Don't have an account? <a href="page-signup.html">Create an Account</a></p>
+											
+														<p>ບໍ່ທັນມີບັນຊີຜູ້ໃຊ້ກົດລີ້ງເພື່ອ => <router-link to="/register">ລົງທະບຽນ</router-link></p>
 													</div>
 												</div>
 											</div>
