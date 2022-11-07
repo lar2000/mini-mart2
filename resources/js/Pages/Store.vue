@@ -392,6 +392,7 @@ export default {
             formData.append('price_buy', this.FormProduct.price_buy);
             formData.append('price_sell', this.FormProduct.price_sell);
             formData.append('file',this.image_product);
+            formData.append('acc_type','expense');
 
             this.$axios.get("/sanctum/csrf-cookie").then((response)=>{
               this.$axios.post("/api/store/add", formData, {headers:{"content-type":"multipart/form-data"}}).then((response)=>{

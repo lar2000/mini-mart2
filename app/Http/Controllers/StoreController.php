@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Store;
+use App\Models\Transection;
 
 use Intervention\Image\Facades\Image;
 
@@ -50,6 +51,37 @@ class StoreController extends Controller
             $store->price_buy = $request->price_buy;
             $store->price_sell = $request->price_sell;
             $store->save();
+            $product_id = $store->id;
+
+            /// ບັນທຶກລາຍຈ່າຍ
+
+            $tran = Transection::all()->sortByDesc('id')->take(1)->toArray();
+                $number = 1;
+                foreach($tran as $new)
+                {
+                    $number = $new['tran_id'];
+                }
+                if($number!=''){
+                    $number1 = str_replace("INC","",$number);
+                    $number2 = str_replace("EXP","",$number1);
+                    $number = (int)$number2+1;
+                    $length = 5;
+                    $number = substr(str_repeat(0, $length).$number, - $length);
+                }
+
+                if($request->acc_type=='income'){ $tnum = 'INC'; }
+                elseif($request->acc_type=='expense'){ $tnum = 'EXP'; }
+
+                $tran = new Transection();
+                $tran->tran_id = $tnum.$number;
+                $tran->product_id = $product_id;
+                $tran->tran_type = $request->acc_type;
+                $tran->tran_detail = 'ນຳເຂົ້າສິນໃໝ່: '.$request->name;
+                $tran->amount = $request->amount;
+                $tran->price = $request->price_buy*$request->amount;
+                $tran->save();
+
+
 
             $success = true;
             $message = "ບັນທຶກຂໍ້ມູນ ສຳເລັດ";

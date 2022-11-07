@@ -13,7 +13,7 @@ class TransectionController extends Controller
 
     public function index(Request $request){
 
-        $monthtype = $request->monthtype;
+        $month_type = $request->month_type;
         $date = $request->dmy;
 
         if($request->dmy==''){
@@ -25,12 +25,12 @@ class TransectionController extends Controller
             $m = explode('-',$date)[1];
             $y = explode('-',$date)[0];
     
-                if($monthtype=='m'){
+                if($month_type=='m'){
                     $tran = Transection::whereYear('created_at', '=', $y)->whereMonth('created_at', '=', $m)->orderBy('created_at', 'desc')
                     ->paginate(10)
                     ->toArray();
                     return array_reverse($tran);
-                }else if($monthtype=='y'){
+                }else if($month_type=='y'){
                     $tran = Transection::whereYear('created_at', '=', $y)->orderBy('created_at', 'desc')
                     ->paginate(10)
                     ->toArray();

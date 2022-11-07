@@ -30,7 +30,14 @@
 									<h4 class="card-title mg-b-0">ການເຄື່ອນໄຫວ ທຸລະກຳ</h4>
 									<i class="mdi mdi-dots-horizontal text-gray"></i>
 								</div>
-								
+								<div class="row justify-content-end">
+									<div aria-label="Basic example" class="btn-group" role="group" style="width:200px">
+														<button class="btn btn-secondary pd-x-25" type="button" @click="month_type = 'm'" > <i class="las la-angle-double-right" v-if="month_type=='m'"></i> ເດືອນ</button> 
+														<button class="btn btn-secondary pd-x-25" type="button" @click="month_type = 'y'" > <i class="las la-angle-double-right" v-if="month_type=='y'"></i> ປີ</button>
+													</div>
+													<input type="date" class="form-control  me-2" style="width:180px" v-model="dmy" >
+													<button class="btn btn-primary me-3" style="width:180px" @click="get_tran()">ສະແດງການເຄື່ອນໄຫວ</button>
+								</div>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive"> 
@@ -74,7 +81,9 @@ export default {
 
     data() {
         return {
-            TranData:[]
+            TranData:[],
+			month_type:'y',
+			dmy:''
         };
     },
 	components:{
@@ -94,7 +103,10 @@ export default {
 		},
         get_tran(page){
 		this.$axios.get("/sanctum/csrf-cookie").then((response)=>{
-		  this.$axios.get(`/api/transection?page=${page}}`).then((response)=>{
+		  this.$axios.post(`/api/transection?page=${page}}`,{
+			month_type: this.month_type,
+			dmy: this.dmy
+		  }).then((response)=>{
 				this.TranData = response.data;
 			}).catch((error)=>{
 				console.log(error)
