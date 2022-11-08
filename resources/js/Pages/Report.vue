@@ -26,7 +26,7 @@
 						</div>
 					</div>
 				</div>
-          <storewedgit/>
+
            <div class="row">
 				<div class="col-md-8">
 					<div class="card">
@@ -48,7 +48,7 @@
 								<div class="table-responsive"> 
 									<!-- <BarChartEx/> -->
 									<LineChart
-									:chartData="chdat"
+									:chartData="chdata"
 									:chartOptions="chdatatop"
 									:update="update_chart"
 									:key="key"
@@ -66,13 +66,13 @@
 								<div class="row">
 									<div class="col-6">
 										<div class="icon1 mt-2 text-center">
-											<i class="fe fe-users tx-40"></i>
+											<i class="ti-stats-up tx-40"></i>
 										</div>
 									</div>
 									<div class="col-6">
 										<div class="mt-0 text-center">
-											<span class="text-white">Members</span>
-											<h2 class="text-white mb-0">600</h2>
+											<span class="text-white">ລາຍຮັບ</span>
+											<h2 class="text-white mb-0">{{formatPrice(sum_inceme)}} ກີບ</h2>
 										</div>
 									</div>
 								</div>
@@ -85,13 +85,13 @@
 								<div class="row">
 									<div class="col-6">
 										<div class="icon1 mt-2 text-center">
-											<i class="fe fe-users tx-40"></i>
+											<i class="ti-stats-down tx-40"></i>
 										</div>
 									</div>
 									<div class="col-6">
 										<div class="mt-0 text-center">
-											<span class="text-white">Members</span>
-											<h2 class="text-white mb-0">600</h2>
+											<span class="text-white">ລາຍຈ່າຍ</span>
+											<h2 class="text-white mb-0">{{formatPrice(sum_expense)}} ກີບ</h2>
 										</div>
 									</div>
 								</div>
@@ -104,13 +104,13 @@
 								<div class="row">
 									<div class="col-6">
 										<div class="icon1 mt-2 text-center">
-											<i class="fe fe-users tx-40"></i>
+											<i class="ti-pie-chart tx-40"></i>
 										</div>
 									</div>
 									<div class="col-6">
 										<div class="mt-0 text-center">
-											<span class="text-white">Members</span>
-											<h2 class="text-white mb-0">600</h2>
+											<span class="text-white">ກຳໄລ</span>
+											<h2 class="text-white mb-0">{{formatPrice(sum_profit)}} ກີບ</h2>
 										</div>
 									</div>
 								</div>
@@ -129,6 +129,7 @@
 import { defineComponent } from 'vue'
 import BarChartEx from '../components/BarChartEx.vue'
 import LineChart from '../components/LineChart.vue'
+import moment from "moment"
 
 export default defineComponent({
     name: 'MiniPosReport',
@@ -177,14 +178,28 @@ export default defineComponent({
         };
     },
 	components:{
-		BarChartEx,LineChart
+		BarChartEx,LineChart,moment
 	},
     mounted() {
         
     },
+	computed:{
+		sum_inceme(){
+			return this.data_income.reduce((num, item) => num + item.price,0);
+		},
+		sum_expense(){
+			return this.data_expense.reduce((num, item) => num + item.price,0);
+		},
+		sum_profit(){
+		  return this.sum_inceme - this.sum_expense
+		}
+	},
 
     methods: {
-
+		formatPrice(value) {
+			let val = (value / 1).toFixed(0).replace(",", ".");
+			return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		},
 		CreateReport(){
 		this.$axios.get("/sanctum/csrf-cookie").then((response) => {
 			this.$axios.post("/api/report", {
@@ -201,8 +216,174 @@ export default defineComponent({
 			});
 		});
 		},
-		GenGrap(){
+		Getlastday(y,m){
+			let dd = new Date(y, m , 0).getDate();
+			//console.log('ວັນທີ່ສຸດທ້າຍ ຂອງເດືອນ:'+ dd)
+			return dd
+		},
+		Getday(value){
+			return moment(value).format("DD");
+		},
+		Getmonth(value){
+			return moment(value).format("MM");
+		},
+		Get_data_chart(date, data){
+			///  console.log(data)
+			let new_db_in = [];
+			let databack = [];
+			for (let y = 0; y < data.length; y++) {
+				if (data[y] != "") {
+				let day = this.Getday(data[y].created_at);
+				new_db_in.push({ price: data[y].price, day: day });
+				}
+			}
+			// console.log(new_db_in)
+			
+				let update_db_in = new_db_in.reduce((a, c) => {
+					let filtered = a.filter((el) => el.day === c.day);
+					if (filtered.length > 0) {
+					a[a.indexOf(filtered[0])].price =
+						parseInt(a[a.indexOf(filtered[0])].price) + parseInt(c.price);
+					} else {
+					a.push(c);
+					}
+					return a;
+				}, []);
+			// console.log(update_db_in)
+				for (let i = 0; i < date; i++) {
+					let type = true;
+					for (let k = 0; k < update_db_in.length; k++) {
+					if (update_db_in[k].day == i + 1) {
+						if (type) {
+						databack.push(update_db_in[k].price);
+						type = false;
+						}
+					}
+					}
+					if (type) {
+					databack.push(0);
+					type = false;
+					}
+				}
+			return databack;
+		},
+		Get_data_chart_y(monthchart, data){
 
+			let new_db_in = [];
+			let databack = [];
+			for (let y = 0; y < data.length; y++) {
+				if (data[y] != "") {
+				let month = this.Getmonth(data[y].created_at);
+				new_db_in.push({ price: data[y].price, month: month });
+				}
+			}
+
+			let update_db_in = new_db_in.reduce((a, c) => {
+				let filtered = a.filter((el) => el.month == c.month);
+				if (filtered.length > 0) {
+				a[a.indexOf(filtered[0])].price =
+					parseInt(a[a.indexOf(filtered[0])].price) + parseInt(c.price);
+				} else {
+				a.push(c);
+				}
+				return a;
+			}, []);
+
+			for (let i = 0; i < monthchart; i++) {
+				let type = true;
+				for (let k = 0; k < update_db_in.length; k++) {
+				if (update_db_in[k].month == i + 1) {
+					if (type) {
+					databack.push(update_db_in[k].price);
+					type = false;
+					}
+				}
+				}
+				if (type) {
+				databack.push(0);
+				type = false;
+				}
+			}
+
+			return databack;
+
+		},
+		GenGrap(){
+			this.ShowChart = true;
+
+			if(this.month_type == "m"){
+
+				this.key++;
+                    let re_income = [];
+                    let re_expense = [];
+
+                    let y = this.dmy.split("-")[0];
+                    let m = this.dmy.split("-")[1];
+					
+                    let lastday = this.Getlastday(y, m);
+
+                    //console.log('ຊອກວັນທີ່: '+lastday)
+
+                    let chart_label = [];
+                    for (let i = 0; i < lastday; i++) {
+                    chart_label.push("ວັນທີ່ " + (i + 1));
+                    //console.log(i)
+                    }
+
+                    re_income = this.Get_data_chart(lastday, this.data_income) || 0;
+                    re_expense = this.Get_data_chart(lastday, this.data_expense) || 0;
+                
+
+                    this.chdata = {
+                    labels: chart_label,
+                    datasets: [
+                        {
+                        label: "ລາຍຮັບ",
+                        fill: false,
+                        borderColor: "#336600",
+                        data: re_income,
+                        },
+                        {
+                        label: "ລາຍຈ່າຍ",
+                        fill: false,
+                        borderColor: "#DC3912",
+                        data: re_expense,
+                        },
+						
+
+                    ],
+                    };
+                    this.update_chart = Math.floor(Math.random() * 100);
+
+			} else if(this.month_type == "y"){
+
+				this.key++;
+                    let re_income = [];
+                    let re_expense = [];
+                    let chart_label = ["ເດືອນ 1","ເດືອນ 2","ເດືອນ 3","ເດືອນ 4","ເດືອນ 5","ເດືອນ 6","ເດືອນ 7","ເດືອນ 8","ເດືອນ 9","ເດືອນ 10","ເດືອນ 11","ເດືອນ 12",];
+
+                    re_income = this.Get_data_chart_y(12, this.data_income) || 0;
+                    re_expense = this.Get_data_chart_y(12, this.data_expense) || 0;
+
+                    this.chdata = {
+                    labels: chart_label,
+                    datasets: [
+                        {
+                        label: "ລາຍຮັບ",
+                        fill: false,
+                        borderColor: "#3366CC",
+                        data: re_income,
+                        },
+                        {
+                        label: "ລາຍຈ່າຍ",
+                        fill: false,
+                        borderColor: "#DC3912",
+                        data: re_expense,
+                        },
+                    ],
+                    };
+                    this.update_chart = Math.floor(Math.random() * 100);
+			}
 		}
 
         
