@@ -1146,8 +1146,8 @@ export default {
 		console.log(window.Laravel.isLoggedin);
 	}
 
-};
-</script>
+ };
+ </script>
 
 <style lang="scss" scoped>
 
