@@ -18,10 +18,10 @@
 					<div class="app-sidebar__user clearfix">
 						<div class="dropdown user-pro-body">
 							<div class="">
-								<img alt="user-img" class="avatar avatar-xl brround" src="assets/img/faces/6.jpg"><span class="avatar-status profile-status bg-green"></span>
+								<img alt="user-img" class="avatar avatar-xl brround" src="assets/img/lar.jpg"><span class="avatar-status profile-status bg-green"></span>
 							</div>
 							<div class="user-info">
-								<h4 class="fw-semibold mt-3 mb-0">Petey Cruiser</h4>
+								<h4 class="fw-semibold mt-3 mb-0">ຫຼ້າ ຢ່າງ</h4>
 								<span class="mb-0 text-muted">Premium Member</span>
 							</div>
 						</div>
@@ -82,7 +82,7 @@
 										<a href="#" class="d-flex  nav-item country-flag1"
 											data-bs-toggle="dropdown" aria-expanded="false">
 											<span class="avatar country-Flag me-0 align-self-center bg-transparent"><img
-													src="assets/img/flags/us_flag.jpg" alt="img"></span>
+													src="assets/img/lao.jpg" alt="img"></span>
 											<div class="my-auto">
 												<strong class="me-2 ms-2 my-auto">English</strong>
 											</div>
@@ -122,6 +122,20 @@
 														src="assets/img/flags/spain_flag.jpg" alt="img"></span>
 												<div class="d-flex">
 													<span class="mt-2">spain</span>
+												</div>
+											</a>
+											<a href="#" class="dropdown-item d-flex">
+												<span class="avatar me-3 align-self-center bg-transparent"><img
+														src="assets/img/thai.jpg" alt="img"></span>
+												<div class="d-flex">
+													<span class="mt-2">Thailand</span>
+												</div>
+											</a>
+											<a href="#" class="dropdown-item d-flex">
+												<span class="avatar me-3 align-self-center bg-transparent"><img
+														src="assets/img/lao.jpg" alt="img"></span>
+												<div class="d-flex">
+													<span class="mt-2">Laos</span>
 												</div>
 											</a>
 										</div>
@@ -173,12 +187,12 @@
 									<div class="main-message-list chat-scroll">
 										<a href="#" class="p-3 d-flex border-bottom">
 											<div class="  drop-img  cover-image  "
-												data-bs-image-src="assets/img/faces/3.jpg">
+												data-bs-image-src="assets/img/faces/lar.jpg">
 												<span class="avatar-status bg-teal"></span>
 											</div>
 											<div class="wd-90p">
 												<div class="d-flex">
-													<h5 class="mb-1 name">Petey Cruiser</h5>
+													<h5 class="mb-1 name">ຫຼ້າ ຢ່າງ</h5>
 												</div>
 												<p class="mb-0 desc">I'm sorry but i'm not sure how to help you with
 													that......</p>
@@ -360,14 +374,14 @@
 
 							<li class="dropdown main-profile-menu nav nav-item nav-link">
 								<a class="profile-user d-flex" href=""><img alt=""
-										src="assets/img/faces/6.jpg"></a>
+										src="assets/img/lar.jpg"></a>
 								<div class="dropdown-menu">
 									<div class="main-header-profile bg-primary p-3">
 										<div class="d-flex wd-100p">
-											<div class="main-img-user"><img alt="" src="assets/img/faces/6.jpg"
+											<div class="main-img-user"><img alt="" src="assets/img/lar.jpg"
 													class=""></div>
 											<div class="ms-3 my-auto">
-												<h6>Petey Cruiser</h6><span>Premium Member</span>
+												<h6>ຫຼ້າ ຢ່າງ</h6><span>Premium Member</span>
 											</div>
 										</div>
 									</div>
@@ -1097,7 +1111,7 @@
 
 <script>
 export default {
-    name: 'MiniPosApp',
+    name: 'App',
 
     data() {
         return {

@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: 'MiniPosHome',
+    name: 'MHome',
 
     data() {
         return {

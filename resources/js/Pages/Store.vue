@@ -4,33 +4,35 @@
     <div class="breadcrumb-header justify-content-between">
 					<div class="left-content">
 						<div>
-						  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Hi, welcome back!</h2>
+						  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">ສະບາຍດີ, ຍິນດີຕ້ອນຮັບ!</h2>
 						  <p class="mg-b-0">Sales monitoring dashboard template.</p>
 						</div>
 					</div>
 					<div class="main-dashboard-header-right">
 						<div>
-							<label class="tx-13">Customer Ratings</label>
+							<label class="tx-13">ຄະແນນລູກຄ້າ</label>
 							<div class="main-star">
 								<i class="typcn typcn-star active"></i> <i class="typcn typcn-star active"></i> <i class="typcn typcn-star active"></i> <i class="typcn typcn-star active"></i> <i class="typcn typcn-star"></i> <span>(14,873)</span>
 							</div>
 						</div>
 						<div>
-							<label class="tx-13">Online Sales</label>
+							<label class="tx-13">ການຂາຍອອນໄລນ໌</label>
 							<h5>563,275</h5>
 						</div>
 						<div>
-							<label class="tx-13">Offline Sales</label>
+							<label class="tx-13">ການຂາຍອອຟໄລນ໌</label>
 							<h5>783,675</h5>
 						</div>
 					</div>
 				</div>
+
+
+
     <storewedgit />
     
 
       
-
-      <div class="card">
+    <div class="card">
       <div class="card-header pb-0">
         <div class="d-flex justify-content-between">
           <h4 class="card-title mg-b-0">ລາຍການ ສະຕ໋ອກສິນຄ້າ</h4>
@@ -195,13 +197,13 @@
 import Pagination from '../components/Pagination.vue';
 export default {
   components: { Pagination },
-  name: "MiniPosStore",
+  name: "Store",
 
   data() {
     return {
       search:'',
       options: {
-              ///prefix: '₭ ',
+              // prefix: '₭ ',
               numeral: true,
               numeralPositiveOnly: true,
               noImmediatePrefix: true,
@@ -221,7 +223,7 @@ export default {
         price_buy: "",
         price_sell: "",
       },
-      image_preview:window.location.origin+'/assets/img/add-img.png',
+      image_preview:window.location.origin+'/assets/img/add-img.jpg',
       image_product:''
     };
   },

@@ -12,7 +12,7 @@
 		<meta name="csrf-token" content="{{ csrf_token() }}" />
 		
 		<!-- Title -->
-		<title> Valex -  Premium dashboard ui bootstrap rwd admin html5 template </title>
+		<title>mini-mart </title>
 
 		<!-- Favicon -->
 		<link rel="icon" href="assets/img/brand/favicon.png" type="image/x-icon"/>
@@ -76,8 +76,7 @@
 			window.Laravel = JSON.parse(atob('{{ base64_encode(json_encode($user_auth_data)) }}'));
 		</script>
 
-
-        <div id="app-vue"></div>
+          <div id="app-vue"></div>
 
 
 

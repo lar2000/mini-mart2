@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :style="{'background-image':'url(assets/img/backgrounds/A4.jpg)'}">
         <div class="login d-flex align-items-center py-2">
 							<!-- Demo content-->
 							<div class="container p-0">
@@ -18,11 +18,11 @@
 													<h5 class="fw-semibold mb-4">ກະລຸນາປ້ອນອີເມວລ໌ ແລະ ລະຫັດເພື່ອເຂົ້າສູ່ ລະບົບ.</h5>
 												
 														<div class="form-group">
-															<label>Email</label> 
+															<label class="tag tag-rounded">Email</label> 
 															<input class="form-control" placeholder="ປ້ອນອີເມວລ໌" type="text" v-model="email">
 														</div>
 														<div class="form-group">
-															<label>Password</label> <input class="form-control" placeholder="ປ້ອນລະຫັດຜ່ານ" type="password" v-model="password">
+															<label class="tag tag-rounded">Password</label> <input class="form-control" placeholder="ປ້ອນລະຫັດຜ່ານ" type="password" v-model="password">
 														</div>
 														<div class="alert alert-warning" role="alert" v-if="show_error">
 																<button aria-label="Close" class="close" data-bs-dismiss="alert" type="button">
@@ -35,7 +35,7 @@
 											
 													<div class="main-signin-footer mt-5">
 											
-														<p>ບໍ່ທັນມີບັນຊີຜູ້ໃຊ້ກົດລີ້ງເພື່ອ => <router-link to="/register">ລົງທະບຽນ</router-link></p>
+														<p style="color:black">ບໍ່ທັນມີບັນຊີຜູ້ໃຊ້ກົດລີ້ງເພື່ອ =><router-link to="/register"> ລົງທະບຽນ</router-link></p>
 													</div>
 												</div>
 											</div>
@@ -49,7 +49,7 @@
 
 <script>
 export default {
-    name: 'Minipos04Login',
+    name: 'Login',
 
     data() {
         return {

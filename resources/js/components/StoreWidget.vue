@@ -5,10 +5,10 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="card-order">
-									<h6 class="mb-2">New users</h6>
-									<h2 class="text-end "><i class="mdi mdi-account-multiple icon-size float-start text-primary text-primary-shadow"></i><span>3,672</span>
-									</h2>
-									<p class="mb-0">Monthly users<span class="float-end">50%</span></p>
+									<h6 class="mb-2">ຜູ້ໃຊ້ໃໝ່</h6>
+									<h3 class="text-end "><i class="mdi mdi-account-multiple icon-size float-start text-primary text-primary-shadow"></i><span>3,672</span>
+									</h3>
+									<p class="mb-0">ຜູ້ໃຊ້ລາຍເດືອນ<span class="float-end">50%</span></p>
 								</div>
 							</div>
 						</div>
@@ -17,10 +17,10 @@
 						<div class="card ">
 							<div class="card-body">
 								<div class="card-widget">
-									<h6 class="mb-2">Total Tax</h6>
-									<h2 class="text-end"><i class="mdi mdi-cube icon-size float-start text-success text-success-shadow"></i><span>$89,265</span>
-									</h2>
-									<p class="mb-0">Monthly Income<span class="float-end">$7,893</span></p>
+									<h6 class="mb-2">ອາກອນທັງໝົດ</h6>
+									<h3 class="text-end"><i class="mdi mdi-cube icon-size float-start text-success text-success-shadow"></i><span>8,920,000 ກີບ</span>
+									</h3>
+									<p class="mb-0">ລາຍຈ່າຍປະຈຳເດືອນ<span class="float-end">7,893,000 ກີບ</span></p>
 								</div>
 							</div>
 						</div>
@@ -29,10 +29,10 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="card-widget">
-									<h6 class="mb-2">Total Profit</h6>
-									<h2 class="text-end"><i class="icon-size mdi mdi-poll-box   float-start text-warning text-warning-shadow"></i><span>$23,987</span>
-									</h2>
-									<p class="mb-0">Monthly Profit<span class="float-end">$4,678</span></p>
+									<h6 class="mb-2">ກຳໄລທັງໝົດ</h6>
+									<h3 class="text-end"><i class="icon-size mdi mdi-poll-box   float-start text-warning text-warning-shadow"></i><span>23,987,000 ກີບ</span>
+									</h3>
+									<p class="mb-0">ກຳໄລລາຍເດືອນ<span class="float-end">4,678,000 ກີບ</span></p>
 								</div>
 							</div>
 						</div>
@@ -41,10 +41,10 @@
 						<div class="card ">
 							<div class="card-body">
 								<div class="card-widget">
-									<h6 class="mb-2">Total Sales</h6>
-									<h2 class="text-end"><i class="fa fa-cart-plus icon-size float-start text-danger text-danger-shadow"></i><span>46,486</span>
-									</h2>
-									<p class="mb-0">Monthly Sales<span class="float-end">3,756</span></p>
+									<h6 class="mb-2">ຍອດຂາຍທັງໝົດ</h6>
+									<h3 class="text-end"><i class="fa fa-cart-plus icon-size float-start text-danger text-danger-shadow"></i><span>46,486,000 ກີບ</span>
+									</h3>
+									<p class="mb-0">ຍອດຂາຍລາຍເດືອນ<span class="float-end">3,756,000 ກີບ</span></p>
 								</div>
 							</div>
 						</div>
@@ -55,7 +55,7 @@
 
 <script>
 export default {
-    name: 'MiniPosStoreWidget',
+    name: 'StoreWidget',
 
     data() {
         return {
