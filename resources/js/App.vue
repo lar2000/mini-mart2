@@ -215,10 +215,10 @@
 										</a>
 										<a href="#" class="p-3 d-flex border-bottom">
 											<div class="drop-img cover-image"
-												data-bs-image-src="assets/img/faces/9.jpg">
-												<span class="avatar-status bg-teal"></span>
-											</div>
-											<div class="wd-90p">
+											data-bs-image-src="assets/img/faces/9.jpg">
+											<span class="avatar-status bg-teal"></span>
+										</div>
+										<div class="wd-90p">
 												<div class="d-flex">
 													<h5 class="mb-1 name">Graham Cracker</h5>
 												</div>
@@ -247,7 +247,7 @@
 												<span class="avatar-status bg-teal"></span>
 											</div>
 											<div class="wd-90p">
-												<div class="d-flex">
+											<div class="d-flex">
 													<h5 class="mb-1 name">Anne Fibbiyon</h5>
 												</div>
 												<p class="mb-0 desc">I'm sorry but i'm not sure how...</p>
