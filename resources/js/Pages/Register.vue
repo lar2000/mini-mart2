@@ -89,7 +89,7 @@ export default {
 
             if(this.name == '' || this.email == '' || this.password == ''){
                 this.show_error = true
-                this.text_error = " ກະລຸນາກວດຊອບ ປ້ອນຂໍ້ມູນໃຫ້ຄົບຖ້ວນ! "
+                this.text_error = " ກະລຸນາກວດສອບ ປ້ອນຂໍ້ມູນໃຫ້ຄົບຖ້ວນ! "
             } else{
                 if(this.password2 !='' && this.password == this.password2){
 

@@ -20070,7 +20070,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       if (this.name == '' || this.email == '' || this.password == '') {
         this.show_error = true;
-        this.text_error = " ກະລຸນາກວດຊອບ ປ້ອນຂໍ້ມູນໃຫ້ຄົບຖ້ວນ! ";
+        this.text_error = " ກະລຸນາກວດສອບ ປ້ອນຂໍ້ມູນໃຫ້ຄົບຖ້ວນ! ";
       } else {
         if (this.password2 != '' && this.password == this.password2) {
           this.show_error = false;
@@ -20398,7 +20398,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "Store",
   data: function data() {
     return {
-      search: '',
+      search: "",
       options: {
         // prefix: '₭ ',
         numeral: true,
@@ -20407,8 +20407,8 @@ __webpack_require__.r(__webpack_exports__);
         rawValueTrimPrefix: true,
         numeralIntegerScale: 10,
         numeralDecimalScale: 2,
-        numeralDecimalMark: '.',
-        delimiter: ','
+        numeralDecimalMark: ".",
+        delimiter: ","
       },
       FormShow: false,
       FormType: false,
@@ -20420,8 +20420,8 @@ __webpack_require__.r(__webpack_exports__);
         price_buy: "",
         price_sell: ""
       },
-      image_preview: window.location.origin + '/assets/img/add-img.jpg',
-      image_product: ''
+      image_preview: window.location.origin + "/assets/img/add-img.jpg",
+      image_product: ""
     };
   },
   methods: {
@@ -20440,16 +20440,16 @@ __webpack_require__.r(__webpack_exports__);
       //this.$swal('Hello Vue world!!!');
 
       this.$swal.fire({
-        title: 'Are you sure?',
+        title: "Are you sure?",
         text: "You won't be able to revert this!",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
       }).then(function (result) {
         if (result.isConfirmed) {
-          _this.$swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+          _this.$swal.fire("Deleted!", "Your file has been deleted.", "success");
         }
       });
     },
@@ -20476,7 +20476,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     add_store: function add_store() {
       this.FormShow = true;
-      this.image_preview = window.location.origin + '/assets/img/add-img.png';
+      this.image_preview = window.location.origin + "/assets/img/add-img.png";
     },
     edit_store: function edit_store(id) {
       var _this3 = this;
@@ -20504,9 +20504,9 @@ __webpack_require__.r(__webpack_exports__);
           _this3.FormProduct.price_sell = response.data.price_sell;
           _this3.image_product = response.data.image;
           if (response.data.image) {
-            _this3.image_preview = window.location.origin + '/assets/img/' + response.data.image;
+            _this3.image_preview = window.location.origin + "/assets/img/" + response.data.image;
           } else {
-            _this3.image_preview = window.location.origin + '/assets/img/add-img.png';
+            _this3.image_preview = window.location.origin + "/assets/img/add-img.png";
           }
         })["catch"](function (error) {
           console.log(error);
@@ -20519,14 +20519,14 @@ __webpack_require__.r(__webpack_exports__);
       //this.FormData.splice(index,1);
 
       this.$swal.fire({
-        title: 'ທ່ານແນ່ໃຈບໍ່?',
+        title: "ທ່ານແນ່ໃຈບໍ່?",
         text: "ທີ່ຈະລຶບຂໍ້ມູນນີ້!",
-        icon: 'question',
+        icon: "question",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'ຕົກລົງ',
-        cancelButtonText: 'ຍົກເລີກ'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "ຕົກລົງ",
+        cancelButtonText: "ຍົກເລີກ"
       }).then(function (result) {
         if (result.isConfirmed) {
           _this4.$axios.get("/sanctum/csrf-cookie").then(function (response) {
@@ -20534,11 +20534,11 @@ __webpack_require__.r(__webpack_exports__);
               if (response.data.success) {
                 _this4.get_data();
                 //alert(response.data.message);
-                _this4.$swal.fire('ສຳເລັດ!', response.data.message, 'success');
+                _this4.$swal.fire("ສຳເລັດ!", response.data.message, "success");
               } else {
                 //alert('ລຶບຂໍ້ມູນ ບໍ່ສຳເລັດ:' + response.data.message);
 
-                _this4.$swal.fire('ຜິດຜາດ!', response.data.message, 'error');
+                _this4.$swal.fire("ຜິດຜາດ!", response.data.message, "error");
               }
             })["catch"](function (error) {
               console.log(error);
@@ -20561,12 +20561,12 @@ __webpack_require__.r(__webpack_exports__);
 
         // ເພີ່ມຂໍ້ມູນເຂົ້າຖານຂໍ້ມູນ
         var formData = new FormData();
-        formData.append('name', this.FormProduct.name);
-        formData.append('amount', this.FormProduct.amount);
-        formData.append('price_buy', this.FormProduct.price_buy);
-        formData.append('price_sell', this.FormProduct.price_sell);
-        formData.append('file', this.image_product);
-        formData.append('acc_type', 'expense');
+        formData.append("name", this.FormProduct.name);
+        formData.append("amount", this.FormProduct.amount);
+        formData.append("price_buy", this.FormProduct.price_buy);
+        formData.append("price_sell", this.FormProduct.price_sell);
+        formData.append("file", this.image_product);
+        formData.append("acc_type", "expense");
         this.$axios.get("/sanctum/csrf-cookie").then(function (response) {
           _this5.$axios.post("/api/store/add", formData, {
             headers: {
@@ -20587,11 +20587,11 @@ __webpack_require__.r(__webpack_exports__);
         //this.FormData.find((i)=>i.id == this.EditID).price_sell = this.FormProduct.price_sell;
 
         var _formData = new FormData();
-        _formData.append('name', this.FormProduct.name);
-        _formData.append('amount', this.FormProduct.amount);
-        _formData.append('price_buy', this.FormProduct.price_buy);
-        _formData.append('price_sell', this.FormProduct.price_sell);
-        _formData.append('file', this.image_product);
+        _formData.append("name", this.FormProduct.name);
+        _formData.append("amount", this.FormProduct.amount);
+        _formData.append("price_buy", this.FormProduct.price_buy);
+        _formData.append("price_sell", this.FormProduct.price_sell);
+        _formData.append("file", this.image_product);
         this.$axios.get("/sanctum/csrf-cookie").then(function (response) {
           _this5.$axios.post("/api/store/update/".concat(_this5.EditID), _formData, {
             headers: {
@@ -20602,7 +20602,7 @@ __webpack_require__.r(__webpack_exports__);
               _this5.get_data();
               alert(response.data.message);
             } else {
-              alert('ອັບເດດຂໍ້ມູນ ບໍ່ສຳເລັດ:' + response.data.message);
+              alert("ອັບເດດຂໍ້ມູນ ບໍ່ສຳເລັດ:" + response.data.message);
             }
           })["catch"](function (error) {
             console.log(error);
@@ -20636,7 +20636,7 @@ __webpack_require__.r(__webpack_exports__);
     next();
   },
   watch: {
-    "search": function search() {
+    search: function search() {
       if (this.search == "") {
         this.get_data();
       }
@@ -22379,7 +22379,7 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "container-fluid"
 };
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"breadcrumb-header justify-content-between\"><div class=\"left-content\"><div><h2 class=\"main-content-title tx-24 mg-b-1 mg-b-lg-1\">ສະບາຍດີ, ຍິນດີຕ້ອນຮັບ!</h2><p class=\"mg-b-0\">Sales monitoring dashboard template.</p></div></div><div class=\"main-dashboard-header-right\"><div><label class=\"tx-13\">ຄະແນນລູກຄ້າ</label><div class=\"main-star\"><i class=\"typcn typcn-star active\"></i> <i class=\"typcn typcn-star active\"></i> <i class=\"typcn typcn-star active\"></i> <i class=\"typcn typcn-star active\"></i> <i class=\"typcn typcn-star\"></i> <span>(14,873)</span></div></div><div><label class=\"tx-13\">ການຂາຍອອນໄລນ໌</label><h5>563,275</h5></div><div><label class=\"tx-13\">ການຂາຍອອຟໄລນ໌</label><h5>783,675</h5></div></div></div>", 1);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"breadcrumb-header justify-content-between\"><div class=\"left-content\"><div><h2 class=\"main-content-title tx-24 mg-b-1 mg-b-lg-1\"> ສະບາຍດີ, ຍິນດີຕ້ອນຮັບ! </h2><p class=\"mg-b-0\">Sales monitoring dashboard template.</p></div></div><div class=\"main-dashboard-header-right\"><div><label class=\"tx-13\">ຄະແນນລູກຄ້າ</label><div class=\"main-star\"><i class=\"typcn typcn-star active\"></i><i class=\"typcn typcn-star active\"></i><i class=\"typcn typcn-star active\"></i><i class=\"typcn typcn-star active\"></i><i class=\"typcn typcn-star\"></i> <span>(14,873)</span></div></div><div><label class=\"tx-13\">ການຂາຍອອນໄລນ໌</label><h5>563,275</h5></div><div><label class=\"tx-13\">ການຂາຍອອຟໄລນ໌</label><h5>783,675</h5></div></div></div>", 1);
 var _hoisted_3 = {
   "class": "card"
 };
@@ -22472,7 +22472,7 @@ var _hoisted_29 = {
 var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
   colspan: "6",
   "class": "text-center"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, " ບໍ່ມີຂໍ້ມູນ ")], -1 /* HOISTED */);
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "ບໍ່ມີຂໍ້ມູນ")], -1 /* HOISTED */);
 var _hoisted_31 = [_hoisted_30];
 var _hoisted_32 = {
   "class": "text-center"
@@ -22503,7 +22503,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_storewedgit = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("storewedgit");
   var _component_cleave = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("cleave");
   var _component_pagination = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("pagination");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_storewedgit), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button\r\n              class=\"btn btn-primary-gradient\"\r\n              @click=\"get_data()\"\r\n            >\r\n              ດຶງຂໍ້ມູນ\r\n            </button>\r\n          "), $data.FormShow ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_storewedgit), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button\r\n                    class=\"btn btn-primary-gradient\"\r\n                    @click=\"get_data()\"\r\n                  >\r\n                    ດຶງຂໍ້ມູນ\r\n                  </button>\r\n                "), $data.FormShow ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
     key: 0,
     "class": "btn btn-success-gradient me-2",
     onClick: _cache[0] || (_cache[0] = function ($event) {
